@@ -153,12 +153,13 @@ body {
 }
 
 .playbar {
-  position: absolute;
-  bottom: 5px;
+  position: fixed;
+  bottom: 8%;
   background-color: #fff;
   border: 1px solid;
-  width: 92%;
+  width: 69%;
   padding: 12px;
+  border-radius: 5px;
 }
 .songbuttons {
   display: flex;

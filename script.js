@@ -32,7 +32,7 @@ async function main() {
     songUL.innerHTML =
       songUL.innerHTML +
       `<li>
-                <img class="invert" src="music.svg" alt="" />
+                <img class="invert" src="./svgs/music.svg" alt="" />
                 <div class="info">
                   <div>${song
                     .replaceAll("%20", "_")
@@ -42,7 +42,7 @@ async function main() {
                 </div>
                 <div class="playnow">
                   <span>Play Now</span>
-                  <img class="invert" src="play.svg" alt="" />
+                  <img class="invert" src="./svgs/play.svg" alt="" />
                 </div>
         </li>`;
   }
