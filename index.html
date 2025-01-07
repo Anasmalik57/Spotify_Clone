@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/utility.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>'Spotify - Web Player: Music for everyone'</title>
   </head>
   <body>
     <div class="container flex bg-black">
       <div class="left">
         <div class="home bg-grey rounded m-1 p-1">
-          <div class="logo flex items-center gap">
-            <img src="./svgs/logo.svg" class="invert" alt="logo" /> Spotify
+          <div class="logo flex">
+            <img
+              style="width: 110px; padding-bottom: 4px"
+              src="./svgs/logo.svg"
+              class="invert"
+              alt="logo"
+            />
           </div>
           <ul>
             <li class="m-1 ma">
@@ -144,7 +150,7 @@
           <div class="cardContainer">
             <div class="card">
               <div class="play">
-                <div class="circle">
+                <div class="circlex">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="26"
@@ -167,16 +173,23 @@
             </div>
           </div>
           <div class="playbar">
-            <!-- SongInfo -->
-            <div class="songInfo"></div>
-            <!-- songButtons -->
-            <div class="songbuttons">
-              <img src="./svgs/prevSong.svg" alt="" />
-              <img src="./svgs/play.svg" alt="" />
-              <img src="./svgs/nextSong.svg" alt="" />
+            <div class="seekbar">
+              <div class="circle">
+                <!-- seekbar's circle -->
+              </div>
             </div>
-            <!-- SongTime -->
-            <div class="songTime"></div>
+            <div class="abovebar">
+              <!-- SongInfo -->
+              <div class="songInfo"></div>
+              <!-- songButtons -->
+              <div class="songbuttons">
+                <img id="previous" src="./svgs/prevSong.svg" alt="" />
+                <img id="play" src="./svgs/play.svg" alt="" />
+                <img id="next" src="./svgs/nextSong.svg" alt="" />
+              </div>
+              <!-- SongTime -->
+              <div class="songTime"></div>
+            </div>
           </div>
         </div>
       </div>
