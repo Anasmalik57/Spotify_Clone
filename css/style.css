@@ -38,7 +38,8 @@ body {
 
 .logo {
   padding: 5px;
-
+  display: flex;
+  justify-content: space-between;
 }
 .library {
   min-height: calc(80vh - 73px);
@@ -61,11 +62,12 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #212121;
   border-radius: 7px;
 }
 .header > * {
-  padding: 20px;
+  padding: 18px;
 }
 .spotifyPlaylists {
   padding: 16px;
@@ -73,14 +75,14 @@ body {
 .cardContainer {
   margin: 30px;
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
   max-height: 65vh;
   overflow-y: auto;
 }
 .card {
-  width: 220px;
+  width: 200px;
   padding: 10px;
   background-color: #252525;
   border-radius: 5px;
@@ -159,7 +161,7 @@ body {
   background-color: #dad5d5;
   width: 69.4vw;
   padding: 12px;
-  height: 40px;
+  min-height: 40px;
   border-radius: 10px;
   filter: invert(1);
 }
@@ -171,7 +173,7 @@ body {
 .songList {
   height: 54vh;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .songList ul {
   padding: 0 12px;
@@ -236,7 +238,8 @@ body {
   transition: all 0.5s;
 }
 .circle:hover {
-transform: scale(1.1);}
+  transform: scale(1.1);
+}
 .songbuttons > img {
   cursor: pointer;
 }
@@ -248,11 +251,81 @@ transform: scale(1.1);}
   color: black;
   font-weight: 600;
   padding: 0 12px;
+  margin: 20px 0;
 }
-.songInfo,
-.songTime {
-  width: 115px;
+.songInfo {
   white-space: nowrap;
+  text-transform: capitalize;
+  width: 115px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
+}
+.songTime {
+  width: 115px;
+  text-align: right;
+}
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+.close {
+  display: none;
+}
+/* Time to write Media Query for Responsiveness */
+
+@media (max-width: 1400px) {
+  .left {
+    background-color: black;
+    position: absolute;
+    left: -120%;
+    transition: all 0.5s ease-in;
+    z-index: 1;
+    width: 370px;
+  }
+  .right {
+    width: 100vw;
+    margin: 5px -12px;
+  }
+  .playbar {
+    font-size: 11px;
+    width: 92vw;
+    transform: translateX(-15px);
+  }
+  .seekbar {
+    width: calc(100vw - 30%);
+    transform: translateX(-6px);
+  }
+  .hamburger {
+    display: block;
+    transition: all 0.2s ease-in;
+  }
+  .hamburger:hover {
+    transform: scale(1.06);
+  }
+  .close {
+    display: block;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+  }
+  .close:hover {
+    transform: scale(1.1);
+  }
+  .buttons > * {
+    width: 60px;
+    font-size: 12px;
+  }
+
+  .play {
+    width: 30px;
+    height: 30px;
+    top: 162px;
+    left: 162px;
+  }
+  .card {
+    width: 90vw;
+  }
+  .cardContainer {
+    margin: 0;
+  }
 }
