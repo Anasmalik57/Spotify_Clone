@@ -1,9 +1,13 @@
 // let play = document.querySelector(".play");
 
 let currentSong = new Audio();
+let songs;
 
 // function to change seconds into minutes:seconds format
 function secondsToMinute(seconds) {
+  if (isNaN(seconds) || seconds < 0) {
+    return "00:00";
+  }
   // Ensure the input is a non-negative integer
   seconds = Math.max(0, Math.floor(seconds));
 
@@ -56,15 +60,15 @@ const playMusic = (track, pause = false) => {
 // creating function named main
 async function main() {
   // get the list of all the songs
-  let songs = await getSongs();
+  songs = await getSongs();
   playMusic(songs[0], true);
   //  show all the songs in the playlist
-  let songUL = document
+  let songsUL = document
     .querySelector(".songList")
     .getElementsByTagName("ul")[0];
   for (const song of songs) {
-    songUL.innerHTML =
-      songUL.innerHTML +
+    songsUL.innerHTML =
+      songsUL.innerHTML +
       `<li><img class="invert" src="./svgs/music.svg" alt="" />
             <div class="info">
                 <div>${song.replaceAll("%20", " ")}</div>
@@ -101,7 +105,7 @@ async function main() {
     // console.log(currentSong.currentTime + " : " + currentSong.duration);
     document.querySelector(".songTime").innerHTML = `${secondsToMinute(
       currentSong.currentTime
-    )}/${secondsToMinute(currentSong.duration)}`;
+    )} / ${secondsToMinute(currentSong.duration)}`;
     // mooving seekbar functionality
     document.querySelector(".circle").style.left = `${
       (currentSong.currentTime / currentSong.duration) * 100
@@ -121,5 +125,34 @@ async function main() {
   document.querySelector(".close").addEventListener("click", () => {
     document.querySelector(".left").style.left = "-120%";
   });
+
+  // Add ana event listner for previous song
+  previous.addEventListener("click", (e) => {
+    console.log("prev");
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+    if (index - 1 >= 0) {
+      playMusic(songs[index - 1]);
+    }
+  });
+  // Add ana event listner for next song
+  next.addEventListener("click", (e) => {
+    currentSong.pause();
+    console.log("next");
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+    if (index + 1 < songs.length) {
+      playMusic(songs[index + 1]);
+    }
+  });
+  // Add an EventListner to volume
+  document
+    .querySelector(".range")
+    .getElementsByTagName("input")[0]
+    .addEventListener("change", (e) => {
+      console.log("Setting volume to " + e.target.value+"/100");
+      currentSong.volume = parseInt(e.target.value) / 100;
+    });
+    // Add eventlister to toggle volume to mute or mute to volume
 }
 main();
+
+// 3:36:10

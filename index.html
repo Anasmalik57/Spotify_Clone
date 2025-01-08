@@ -14,12 +14,12 @@
         <div class="home bg-grey rounded m-1 p-1">
           <div class="logo">
             <img
-            style="width: 110px; padding-bottom: 4px"
-            src="./svgs/logo.svg"
-            class="invert"
-            alt="logo"
+              style="width: 110px; padding-bottom: 4px"
+              src="./svgs/logo.svg"
+              class="invert"
+              alt="logo"
             />
-            <img class="invert close" src="./svgs/close.svg" alt="">
+            <img class="invert close" src="./svgs/close.svg" alt="" />
           </div>
           <ul>
             <li class="m-1 ma">
@@ -205,12 +205,26 @@
               <div class="songInfo"></div>
               <!-- songButtons -->
               <div class="songbuttons">
-                <img width="30" id="previous" src="./svgs/prevSong.svg" alt="" />
-                <img width="30" id="play" src="./svgs/play.svg" alt="" />
-                <img width="30" id="next" src="./svgs/nextSong.svg" alt="" />
+                <img
+                  width="35"
+                  id="previous"
+                  src="./svgs/prevSong.svg"
+                  alt=""
+                />
+                <img width="35" id="play" src="./svgs/play.svg" alt="" />
+                <img width="35" id="next" src="./svgs/nextSong.svg" alt="" />
               </div>
               <!-- SongTime -->
-              <div class="songTime"></div>
+              <div class="volumewitsong">
+                <div class="songTime"></div>
+                <div class="volume">
+                  <img src="./svgs/volume.svg" alt="volume" />
+                  <div class="range">
+                    <input type="range" name="volume" value="100">
+                  </div>
+                </div>
+                <!-- ////// -->
+              </div>
             </div>
           </div>
         </div>
@@ -221,5 +235,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-
-<!-- 3:25:37 -->
