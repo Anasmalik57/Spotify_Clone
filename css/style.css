@@ -172,6 +172,9 @@ body {
 }
 
 .playbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   bottom: 2%;
   background-color: #dad5d5;
@@ -325,6 +328,7 @@ body {
     transition: all 0.5s ease-in;
     z-index: 1;
     width: 370px;
+    height: 100vh;
   }
   .right {
     width: 100vw;
@@ -373,8 +377,7 @@ body {
   .cardContainer {
     margin: 0;
     justify-content: center;
-    margin-bottom: 32vh;
-
+    margin-bottom: 24vh;
   }
   .abovebar {
     display: flex;
@@ -431,5 +434,9 @@ body {
   .seekbar {
     width: 74vw;
     transform: translateX(-6px);
+  }
+  .left{
+    position: fixed;
+    top: 0;
   }
 }
