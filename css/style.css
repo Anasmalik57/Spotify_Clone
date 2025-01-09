@@ -84,7 +84,7 @@ body {
   justify-content: left;
   gap: 10px;
   flex-wrap: wrap;
-  max-height: 65vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 .card {
