@@ -338,6 +338,9 @@ body {
     width: calc(100vw - 10%);
     transform: translateX(-6px);
   }
+  .songbuttons img {
+    width: 30px;
+  }
   .hamburger {
     display: block;
     transition: all 0.2s ease-in;
@@ -370,12 +373,14 @@ body {
   .cardContainer {
     margin: 0;
     justify-content: center;
+    margin-bottom: 32vh;
+
   }
   .abovebar {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 28px;
+    gap: 8px;
     align-items: center;
   }
   .songTime,
@@ -385,7 +390,7 @@ body {
   }
   .volumewitsong {
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
   .cardContainer {
     max-height: 50vh;
