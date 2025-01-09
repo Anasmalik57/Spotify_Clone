@@ -85,6 +85,10 @@ const playMusic = (track, pause = false) => {
   }
   //   filling songInfo(title of song) and songtime(duration)
   document.querySelector(".songInfo").innerHTML = decodeURI(track);
+  // If playlist is not selected then display a custom text in songinfo --> "Select Playlist First"
+  if (document.querySelector(".songInfo").innerText == "Undefined") {
+    document.querySelector(".songInfo").innerText = "Select Playlist First";
+  }
   document.querySelector(".songTime").innerHTML = "00:00  / 00:00";
 };
 
