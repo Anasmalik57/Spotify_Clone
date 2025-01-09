@@ -103,7 +103,7 @@ body {
 .card img {
   width: 100%;
   object-fit: contain;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 .card h2 {
   font-size: 18px;
@@ -111,7 +111,6 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
 }
 .card p {
   font-size: 13px;
@@ -137,7 +136,7 @@ body {
 }
 .play:hover {
   /* opacity: 1; */
-  --a:1;
+  --a: 1;
 }
 
 .signupbtn {
@@ -388,10 +387,38 @@ body {
     flex-direction: column;
     gap: 20px;
   }
+  .cardContainer {
+    max-height: 50vh;
+  }
+  .image {
+    /* border: 1px solid red; */
+    object-fit: cover;
+    z-index: 4455;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    object-position: center center;
+    height: 205px;
+    border-radius: 10px;
+    padding-bottom: 5px;
+  }
 }
 @media (max-width: 430px) {
   .card {
-    width: 80vw;
+    width: auto;
+    /* overflow: hidden; */
+  }
+  .image {
+    /* border: 1px solid red; */
+    object-fit: cover;
+    z-index: 4455;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    object-position: center center;
+    height: 205px;
+    border-radius: 10px;
+    padding-bottom: 5px;
   }
   .playbar {
     width: 77vw;
