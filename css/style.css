@@ -81,7 +81,7 @@ body {
 .cardContainer {
   margin: 30px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 10px;
   flex-wrap: wrap;
   max-height: 65vh;
@@ -89,12 +89,13 @@ body {
 }
 .card {
   width: 200px;
+  height: 255px;
   padding: 10px;
   background-color: #252525;
   border-radius: 5px;
   cursor: pointer;
   position: relative;
-  transition: all 0.6s ease-in;
+  transition: all 0.5s ease-in;
 }
 .card * {
   padding-top: 3px;
@@ -106,12 +107,18 @@ body {
 }
 .card h2 {
   font-size: 18px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
 }
 .card p {
   font-size: 13px;
+  text-transform: capitalize;
 }
 .card:hover {
-  background-color: black;
+  background-color: #454444;
 }
 .play {
   padding: 6px;
@@ -167,11 +174,11 @@ body {
 
 .playbar {
   position: fixed;
-  bottom: 7%;
+  bottom: 2%;
   background-color: #dad5d5;
   width: 69.4vw;
-  padding: 12px;
-  min-height: 40px;
+  padding: 0px 15px;
+  min-height: 20px;
   border-radius: 10px;
   filter: invert(1);
 }
@@ -363,6 +370,7 @@ body {
   }
   .cardContainer {
     margin: 0;
+    justify-content: center;
   }
   .abovebar {
     display: flex;

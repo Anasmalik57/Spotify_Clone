@@ -2,6 +2,7 @@
 
 let currentSong = new Audio();
 let songs;
+let currentfolder;
 
 // function to change seconds into minutes:seconds format
 function secondsToMinute(seconds) {
@@ -23,49 +24,33 @@ function secondsToMinute(seconds) {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 // function for get songs
-async function getSongs() {
-  let a = await fetch("http://127.0.0.1:5500/songs/");
+async function getSongs(folder) {
+  currentfolder = folder;
+  let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
   let response = await a.text();
-  //   console.log(response);
-  //   inserting HTML
   let div = document.createElement("div");
   div.innerHTML = response;
+
   // Select all links within the list of files
   let fileLinks = div.querySelectorAll(" li a");
   // Loop through each link and extract the song name
 
-  let songs = [];
+  songs = [];
   // finging and storing songs .href url in an ampty songs-array
   for (let index = 0; index < fileLinks.length; index++) {
     const element = fileLinks[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split("/songs/")[1]);
+      songs.push(element.href.split(`${folder}`)[1]);
     }
   }
-  return songs;
-}
 
-// creating function named playMusic
-const playMusic = (track, pause = false) => {
-  currentSong.src = "/songs/" + track;
-  if (!pause) {
-    currentSong.play();
-    play.src = "./svgs/pause.svg";
-  }
-  //   filling songInfo(title of song) and songtime(duration)
-  document.querySelector(".songInfo").innerHTML = decodeURI(track);
-  document.querySelector(".songTime").innerHTML = "00:00  / 00:00";
-};
-
-// creating function named main
-async function main() {
-  // get the list of all the songs
-  songs = await getSongs();
-  playMusic(songs[0], true);
   //  show all the songs in the playlist
   let songsUL = document
     .querySelector(".songList")
     .getElementsByTagName("ul")[0];
+
+  songsUL.innerHTML = "";
+
   for (const song of songs) {
     songsUL.innerHTML =
       songsUL.innerHTML +
@@ -86,10 +71,73 @@ async function main() {
     document.querySelector(".songList").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML);
       playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
     });
   });
+}
+
+// creating function named playMusic
+const playMusic = (track, pause = false) => {
+  currentSong.src = `${currentfolder}` + track;
+  if (!pause) {
+    currentSong.play();
+    play.src = "./svgs/pause.svg";
+  }
+  //   filling songInfo(title of song) and songtime(duration)
+  document.querySelector(".songInfo").innerHTML = decodeURI(track);
+  document.querySelector(".songTime").innerHTML = "00:00  / 00:00";
+};
+
+async function displayAlbums() {
+  let a = await fetch(`http://127.0.0.1:5500/songs/`);
+  let response = await a.text();
+  let div = document.createElement("div");
+  div.innerHTML = response;
+  let anchors = div.getElementsByTagName("a");
+  let cardContainer = document.querySelector(".cardContainer");
+  let array = Array.from(anchors);
+  for (let i = 0; i < array.length; i++) {
+    const e = array[i];
+
+    if (e.href.includes("/songs/")) {
+
+      let folder = e.href.split("/").slice(-1)[0];
+      // get the metadata of the folder
+      let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+      let response = await a.json();
+      cardContainer.innerHTML =
+        cardContainer.innerHTML +
+        `<div data-folder="${folder}" class="card">
+            <div class="play">
+              <div class="circlex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 20 20" >
+                  <path fill="#000" d="M15.544 9.59a1 1 0 0 1-.053 1.728L6.476 16.2A1 1 0 0 1 5 15.321V4.804a1 1 0 0 1 1.53-.848l9.014 5.634Z" />
+                </svg>
+              </div>
+            </div>
+            <img src="/songs/${folder}/cover.jpg" alt="" />
+            <h2>${response.title}</h2>
+            <p>${response.description}</p>
+         </div>`;
+    }
+  }
+
+  // Load the playlist whenever the ard is clicked!
+  Array.from(document.getElementsByClassName("card")).forEach((e) => {
+    e.addEventListener("click", async (item) => {
+      songs = await getSongs(`/songs/${item.currentTarget.dataset.folder}/`);
+    });
+  });
+}
+
+async function main() {
+  // get the list of all the songs
+  await getSongs("/songs/ncs/");
+  playMusic(songs[0], true);
+
+  // Display all the albums on the page
+  displayAlbums();
+
   // Attach an event listner to play, next and previous
   play.addEventListener("click", () => {
     if (currentSong.paused) {
@@ -102,7 +150,6 @@ async function main() {
   });
   // Listen for timeupdate event
   currentSong.addEventListener("timeupdate", () => {
-    // console.log(currentSong.currentTime + " : " + currentSong.duration);
     document.querySelector(".songTime").innerHTML = `${secondsToMinute(
       currentSong.currentTime
     )} / ${secondsToMinute(currentSong.duration)}`;
@@ -128,7 +175,6 @@ async function main() {
 
   // Add ana event listner for previous song
   previous.addEventListener("click", (e) => {
-    console.log("prev");
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
     if (index - 1 >= 0) {
       playMusic(songs[index - 1]);
@@ -137,7 +183,6 @@ async function main() {
   // Add ana event listner for next song
   next.addEventListener("click", (e) => {
     currentSong.pause();
-    console.log("next");
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
     if (index + 1 < songs.length) {
       playMusic(songs[index + 1]);
@@ -148,11 +193,21 @@ async function main() {
     .querySelector(".range")
     .getElementsByTagName("input")[0]
     .addEventListener("change", (e) => {
-      console.log("Setting volume to " + e.target.value+"/100");
       currentSong.volume = parseInt(e.target.value) / 100;
     });
-    // Add eventlister to toggle volume to mute or mute to volume
+  // Add event listener to toggle volume to mute or mute to volume
+  document.querySelector(".volume > img").addEventListener("click", (e) => {
+    if (e.target.src.includes("volume.svg") || e.target.alt == "volume") {
+      e.target.src = e.target.src.replace("volume.svg", "mute.svg");
+      e.target.alt = "mute";
+      currentSong.volume = 0;
+      document.querySelector(".range > input").value = 0;
+    } else {
+      e.target.src = e.target.src.replace("mute.svg", "volume.svg");
+      e.target.alt = "volume";
+      currentSong.volume = 1;
+      document.querySelector(".range > input").value = 100;
+    }
+  });
 }
 main();
-
-// 3:36:10
