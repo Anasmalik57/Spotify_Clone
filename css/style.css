@@ -172,9 +172,9 @@ body {
 }
 
 .playbar {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   position: fixed;
   bottom: 2%;
   background-color: #dad5d5;
